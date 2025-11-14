@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  website:
+    # Uses the pre-built Node.js dev image
+    image: ghcr.io/nova-ecosystem/dev-node:latest
+    volumes: -..:/workspace:cached
+    working_dir: /workspace/website
+    ports:
+      - "3000:3000" # Docusaurus port
+    command: sleep infinity
+
+  app:
+    # Uses the pre-built Node.js dev image
+    image: ghcr.io/nova-ecosystem/dev-node:latest
+    volumes: -..:/workspace:cached
+    working_dir: /workspace/app
+    ports:
+      - "8080:8080" # React port
+    depends_on:
+      - api
+    environment:
+      # This service depends on other enablers
+      - API_URL=http://api:8000
+      - AGRO_API_URL=http://agro-api:8000
+      - AI_API_URL=http://ai-api:8000
+    command: sleep infinity
+
+  api:
+    # Uses the pre-built Python dev image
+    image: ghcr.io/nova-ecosystem/dev-python:latest
+    volumes: -..:/workspace:cached
+    working_dir: /workspace/api
+    ports:
+      - "8000:8000" # Python/Flask port
+    command: sleep infinity

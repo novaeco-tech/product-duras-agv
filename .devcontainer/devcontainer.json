@@ -1,0 +1,25 @@
+{
+    "name": "Durasagv Product",
+    "dockerComposeFile": "docker-compose.yml",
+    // This is the service VS Code will 'attach' to
+    "service": "app",
+    // Mount the entire monorepo root into /workspace
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "dbaeumer.vscode-eslint",
+                "ms-azuretools.vscode-docker"
+            ]
+        }
+    },
+    // Forward all ports for all running services
+    "forwardPorts": [
+        3000,
+        8080,
+        8000
+    ],
+    // Run this command *after* the 'app' container is created
+    "postCreateCommand": "npm install"
+}

@@ -1,0 +1,72 @@
+name: Publish Product Artifacts (durasagv)
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write # To create the GitHub Release
+  
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Version (from /app/package.json)
+        id: get_version
+        run: echo "VERSION=$(node -p "require('./app/package.json').version")" >> $GITHUB_ENV
+
+      - name: Build & Package API
+        run: |
+          cd api
+          # (Your build commands: e.g., pip install -r requirements.txt -t./dist)
+          echo "Building api..."
+          mkdir -p dist
+          echo "api-content" > dist/api.file
+          tar -czf../api.tar.gz -C dist.
+
+      - name: Build & Package App
+        run: |
+          cd app
+          # (Your build commands: e.g., npm install && npm run build)
+          echo "Building app..."
+          mkdir -p build
+          echo "app-content" > build/app.file
+          tar -czf../app.tar.gz -C build.
+
+      - name: Build & Package Website
+        run: |
+          cd website
+          # (Your build commands: e.g., npm install && npm run build)
+          echo "Building website..."
+          mkdir -p build
+          echo "website-content" > build/index.html
+          tar -czf../website.tar.gz -C build.
+
+      - name: Create GitHub Pre-release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "durasagv-v${{ env.VERSION }}"
+          name: "Durasagv Product v${{ env.VERSION }}"
+          files: |
+            api.tar.gz
+            app.tar.gz
+            website.tar.gz
+          prerelease: true # Mark as "Pre-release"
+
+      - name: Dispatch QA
+        # This triggers the ecosystem-qa repo to test this new pre-release
+        run: |
+          gh api repos/nova-ecosystem/ecosystem-qa/dispatches \
+            -f event_type='qa-run' \
+            -f client_payload='{
+                "tag": "durasagv-v${{ env.VERSION }}", 
+                "repo": "durasagv", 
+                "test_suite": "inter-product-durasagv",
+                "test_suite_path": "inter_product/test_durasagv_journey.py"
+              }'
+        env:
+          GITHUB_TOKEN: ${{ secrets.DISPATCH_TOKEN }} # A PAT with repo access [10]
