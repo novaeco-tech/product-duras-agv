@@ -2,7 +2,7 @@
 
 Welcome to the `durasagv` flagship product.
 
-This is a standalone application that *consumes* services from the Nova Ecosystem, primarily the `agro` sector and `ai` enabler, to provide.
+This is a standalone application that *consumes* services from the NovaEco, primarily the `novaagro` sector and `novasapien` enabler, to provide.
 
 This is a monorepo that contains the three core components of the `durasagv` product:
 
@@ -23,4 +23,4 @@ This repository is configured to use **DevContainers** for a one-click setup, po
 
 This will instantly download the pre-built `dev-python` and `dev-node` images and start all three `durasagv` services (`api`, `app`, `website`) in an integrated environment.
 
-**Note:** This environment does *not* run other enablers (like `agro` or `ai`). You must write unit tests in `/api/tests` that *mock* any external API calls.
+**Note:** This environment does *not* run other enablers (like `novaagro` or `novasapien`). You must write unit tests in `/api/tests` that *mock* any external API calls.
