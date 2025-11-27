@@ -1,4 +1,4 @@
-name: Publish Product Artifacts (duras-agv)
+name: Publish Product Artifacts (product-duras-agv)
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "duras-agv-v${{ env.VERSION }}"
+          tag_name: "product-duras-agv-v${{ env.VERSION }}"
           name: "DurasAGV Product v${{ env.VERSION }}"
           files: |
             api.tar.gz
@@ -60,13 +60,13 @@ jobs:
       - name: Dispatch QA
         # This triggers the ecosystem-qa repo to test this new pre-release
         run: |
-          gh api repos/nova-ecosystem/ecosystem-qa/dispatches \
+          gh api repos/novaeco-tech/ecosystem-qa/dispatches \
             -f event_type='qa-run' \
             -f client_payload='{
-                "tag": "duras-agv-v${{ env.VERSION }}", 
-                "repo": "duras-agv", 
+                "tag": "product-duras-agv-v${{ env.VERSION }}", 
+                "repo": "product-duras-agv", 
                 "test_suite": "inter-product-duras-agv",
-                "test_suite_path": "inter_product/test_durasagv_journey.py"
+                "test_suite_path": "inter_product/test_product_duras_agv_journey.py"
               }'
         env:
           GITHUB_TOKEN: ${{ secrets.DISPATCH_TOKEN }} # A PAT with repo access [10]

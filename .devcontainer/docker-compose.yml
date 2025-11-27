@@ -2,7 +2,7 @@ version: '3.8'
 services:
   website:
     # Uses the pre-built Node.js dev image
-    image: ghcr.io/nova-ecosystem/dev-node:latest
+    image: ghcr.io/novaeco-tech/dev-node:latest
     volumes: -..:/workspace:cached
     working_dir: /workspace/website
     ports:
@@ -11,7 +11,7 @@ services:
 
   app:
     # Uses the pre-built Node.js dev image
-    image: ghcr.io/nova-ecosystem/dev-node:latest
+    image: ghcr.io/novaeco-tech/dev-node:latest
     volumes: -..:/workspace:cached
     working_dir: /workspace/app
     ports:
@@ -21,13 +21,13 @@ services:
     environment:
       # This service depends on other enablers
       - API_URL=http://api:8000
-      - AGRO_API_URL=http://agro-api:8000
-      - AI_API_URL=http://ai-api:8000
+      - NOVAAGRO_API_URL=http://novaagro-api:8000
+      - NOVASAPIEN_API_URL=http://novasapien-api:8000
     command: sleep infinity
 
   api:
     # Uses the pre-built Python dev image
-    image: ghcr.io/nova-ecosystem/dev-python:latest
+    image: ghcr.io/novaeco-tech/dev-python:latest
     volumes: -..:/workspace:cached
     working_dir: /workspace/api
     ports:
