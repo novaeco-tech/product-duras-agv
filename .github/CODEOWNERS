@@ -1,8 +1,8 @@
 # CODEOWNERS file
-# Default owners for all files are the durasagv maintainers
-*         @nova-ecosystem/maintainers-product-durasagv
+# Default owners for all files are the duras-agv maintainers
+*         @nova-ecosystem/maintainers-product-duras-agv
 
-/api/     @nova-ecosystem/maintainers-product-durasagv
-/app/     @nova-ecosystem/maintainers-product-durasagv
-/website/ @nova-ecosystem/maintainers-product-durasagv
-/tests/   @nova-ecosystem/maintainers-product-durasagv
+/api/     @nova-ecosystem/maintainers-product-duras-agv
+/app/     @nova-ecosystem/maintainers-product-duras-agv
+/website/ @nova-ecosystem/maintainers-product-duras-agv
+/tests/   @nova-ecosystem/maintainers-product-duras-agv

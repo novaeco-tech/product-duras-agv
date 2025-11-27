@@ -1,4 +1,4 @@
-name: Publish Product Artifacts (durasagv)
+name: Publish Product Artifacts (duras-agv)
 
 on:
   push:
@@ -49,8 +49,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "durasagv-v${{ env.VERSION }}"
-          name: "Durasagv Product v${{ env.VERSION }}"
+          tag_name: "duras-agv-v${{ env.VERSION }}"
+          name: "DurasAGV Product v${{ env.VERSION }}"
           files: |
             api.tar.gz
             app.tar.gz
@@ -63,9 +63,9 @@ jobs:
           gh api repos/nova-ecosystem/ecosystem-qa/dispatches \
             -f event_type='qa-run' \
             -f client_payload='{
-                "tag": "durasagv-v${{ env.VERSION }}", 
-                "repo": "durasagv", 
-                "test_suite": "inter-product-durasagv",
+                "tag": "duras-agv-v${{ env.VERSION }}", 
+                "repo": "duras-agv", 
+                "test_suite": "inter-product-duras-agv",
                 "test_suite_path": "inter_product/test_durasagv_journey.py"
               }'
         env:

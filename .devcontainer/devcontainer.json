@@ -1,5 +1,5 @@
 {
-    "name": "Durasagv Product",
+    "name": "DurasAGV Product",
     "dockerComposeFile": "docker-compose.yml",
     // This is the service VS Code will 'attach' to
     "service": "app",

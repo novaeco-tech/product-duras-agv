@@ -4,14 +4,14 @@ from unittest.mock import patch
 
 API_URL = "http://api:8000"
 
-# This test runs *locally* against the durasagv-api only.
+# This test runs *locally* against the duras-agv-api only.
 # It MUST mock any calls to external enablers (e.g., agro-api, ai-api).
 
 @patch('requests.post')
 @patch('requests.get')
 def test_create_autonomous_mission(mock_get, mock_post):
     """
-    Tests that the 'durasagv-api' correctly orchestrates calls to the
+    Tests that the 'duras-agv-api' correctly orchestrates calls to the
     'agro-api' and 'ai-api' when a new mission is created.
     """
     
@@ -28,7 +28,7 @@ def test_create_autonomous_mission(mock_get, mock_post):
     mock_post.return_value.status_code = 202
     mock_post.return_value.json.return_value = {"mission_id": "mission-789"}
 
-    # 3. Call our internal 'durasagv-api' endpoint
+    # 3. Call our internal 'duras-agv-api' endpoint
     response = requests.post(
         f"{API_URL}/v1/missions",
         json={"farm_id": "farm-123", "task": "scan"}
